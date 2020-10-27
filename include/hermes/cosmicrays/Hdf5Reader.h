@@ -48,12 +48,18 @@ class Hdf5Reader {
 public:
 	Hdf5Reader(std::string filename, int _suppress_verbosity=0);
 	hid_t open_file(std::string filename, int _suppress_verbosity=0);
+	/*!Read an attribute from Data group by Index*/
+	template_noPointer hid_t ReadGlobalAttribute(int indexAttr, T &AttrData);
 	/*!Read an attribute from Data group*/
 	template_noPointer hid_t ReadGlobalAttribute(std::string AttrName, T &AttrData);
 	/*!Read an array of attribute from Data group*/
 	template_noPointer hid_t ReadGlobalAttribute(std::string AttrName, std::vector<T> &AttrData);
 	/*!Read an attribute related to a dataset */
 	template_noPointer hid_t ReadAttributeFromDataset(std::string DataSetName, const std::string &AttrName, T &AttrData);
+	/*!Find index of argument by using part of the name*/
+	int FindAttrIndex(std::string AttrNamePart);
+
+	herr_t ReadDataset(std::string dsetName, std::vector<int> &dims, std::vector<float> &data);
 private:
 	hid_t close_file();
 	hid_t hdf5file, h5group;
