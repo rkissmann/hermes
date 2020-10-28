@@ -131,6 +131,20 @@ if(ENABLE_SYS_CFITSIO)
 	endif(CFITSIO_FOUND)
 endif(ENABLE_SYS_CFITSIO)
 
+
+option(ENABLE_SYS_HDF5 "System HDF5 for hdf5 input" ON)
+if(ENABLE_SYS_HDF5)
+	#set(CFITSIO_EXE_LINKER_FLAGS "-static")
+	find_package(HDF5 REQUIRED)
+	if(HDF5_FOUND)
+                list(APPEND HERMES_EXTRA_INCLUDES ${HDF5_INCLUDE_DIR})
+                list(APPEND HERMES_EXTRA_LIBRARIES ${HDF5_LIBRARIES})
+                set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${HDF5_C_FLAGS}")
+                set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${HDF5_EXE_LINKER_FLAGS}")
+		add_definitions(-DHERMES_HAVE_HDF5)
+	endif(HDF5_FOUND)
+endif(ENABLE_SYS_HDF5)
+
 # kiss (provided)
 add_subdirectory(lib/kiss)
 list(APPEND HERMES_EXTRA_LIBRARIES kiss)
@@ -273,6 +287,8 @@ add_library(hermes SHARED
 	src/chargedgas/YMW16.cpp
 	src/cosmicrays/Dragon2D.cpp
 	src/cosmicrays/Dragon3D.cpp
+	src/cosmicrays/Hdf5Reader.cpp
+	src/cosmicrays/Picard2D.cpp
 	src/cosmicrays/DummyCRDensity.cpp
 	src/cosmicrays/SimpleCRDensity.cpp
 	src/cosmicrays/Sun08CRDensity.cpp
