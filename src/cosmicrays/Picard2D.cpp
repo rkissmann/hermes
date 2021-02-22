@@ -12,28 +12,28 @@
 
 #include "hermes/Common.h"
 
-#define DEFAULT_CR_FILE \
-	"CosmicRays/Fornieri20/run2d_gamma_D03,7_delta0,45_vA13.fits.gz"
+#define DEFAULT_CR_PATH \
+	"/Test_Picard_2D/Test_Picard_2D_tfinal"
 
 namespace hermes { namespace cosmicrays {
 
-Picard2D::Picard2D(const std::string &filename_, const PID &pid_)
-    : CosmicRayDensity(pid_), filename(filename_) {
+Picard2D::Picard2D(const std::string &dirname_, const PID &pid_)
+    : CosmicRayDensity(pid_), dirname(dirname_) {
 	readFile();
 }
 
 Picard2D::Picard2D(const PID &pid_)
-    : CosmicRayDensity(pid_), filename(getDataPath(DEFAULT_CR_FILE)) {
+    : CosmicRayDensity(pid_), dirname(getDataPath(DEFAULT_CR_PATH)) {
 	readFile();
 }
 
 Picard2D::Picard2D(const std::vector<PID> &pids_)
-    : CosmicRayDensity(pids_), filename(getDataPath(DEFAULT_CR_FILE)) {
+    : CosmicRayDensity(pids_), dirname(getDataPath(DEFAULT_CR_PATH)) {
 	readFile();
 }
 
-Picard2D::Picard2D(const std::string &filename_, const std::vector<PID> &pids_)
-    : CosmicRayDensity(pids_), filename(filename_) {
+Picard2D::Picard2D(const std::string &dirname_, const std::vector<PID> &pids_)
+    : CosmicRayDensity(pids_), dirname(dirname_) {
 	readFile();
 }
 

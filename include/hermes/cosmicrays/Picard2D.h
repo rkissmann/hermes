@@ -19,7 +19,7 @@ namespace hermes { namespace cosmicrays {
 
 class Picard2D : public CosmicRayDensity {
   private:
-	std::string filename;
+	std::string dirname;
 	std::unique_ptr<Hdf5Reader> h5file;
 
 	void readFile();
